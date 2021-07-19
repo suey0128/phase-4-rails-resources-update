@@ -1,4 +1,22 @@
 class BirdsController < ApplicationController
+  #update
+  def update
+    #find the bird we're trying to update
+    bird = Bird.find_by(id: params[:id])
+    #update the bird, using the data from the body
+    bird.update(bird_params)
+    #send a response with the updated bird
+    render json: bird
+  end
+
+  def increment_likes
+    #find the bird we're trying to update
+    bird = Bird.find_by(id: params[:id])
+    #update the bird, using the data from the body
+    bird.update(likes: bird.likes+1)
+    #send a response with the updated bird
+    render json: bird
+  end
 
   # GET /birds
   def index
@@ -25,7 +43,7 @@ class BirdsController < ApplicationController
   private
 
   def bird_params
-    params.permit(:name, :species)
+    params.permit(:name, :species, :likes)
   end
 
 end
